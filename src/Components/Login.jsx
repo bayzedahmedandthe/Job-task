@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
@@ -28,6 +28,7 @@ const Login = () => {
                         <button className="btn btn-outline btn-secondary w-full md:text-xl text-md">Login</button>
                     </div>
                 </form>
+                <p className="pl-8 pb-8 text-secondary">New to this website? <Link to="/register"><span className="hover:text-lg hover:underline">Sign up now</span></Link></p>
             </div>
         </div>
     );
