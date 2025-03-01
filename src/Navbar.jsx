@@ -1,6 +1,22 @@
+import { useContext } from "react";
 import Logo from "../src/assets/Logo.png"
+import { AuthContext } from "./Components/AuthProvider";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
+    const {user, logoutUser} = useContext(AuthContext); 
+    // console.log(user?.photoURL)
+    const handleLogOut = () => {
+        logoutUser()
+        .then(result => {
+            console.log(result);
+            toast.success("Logout successful")
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }
     return (
         <div className=" bg-gradient-to-br from-[#091646] to-[#491906]">
             <div className="navbar w-11/12 mx-auto">
@@ -36,7 +52,12 @@ const Navbar = () => {
                 </ul> */}
                 </div>
                 <div className="navbar-end">
-                    <a className="btn btn-secondary btn-outline">Logout</a>
+                    {
+                        user? <img className="h-10 w-10 rounded-full" src={user.photoURL} alt="" /> : <p className="text-5xl text-secondary rounded-full"> <IoPersonCircleOutline /></p>
+                    }
+                    {
+                        user? <button onClick={handleLogOut} className="btn btn-secondary btn-outline ml-4">Logout</button>: <p></p>
+                    }
                 </div>
             </div>
         </div>

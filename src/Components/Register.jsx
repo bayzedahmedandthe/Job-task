@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { AuthContext } from "./AuthProvider";
 
 const Register = () => {
-    const { createUser } = useContext(AuthContext)
+    const { createUser, updateUserProfile, setUser } = useContext(AuthContext)
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         console.log(data);
@@ -20,7 +20,14 @@ const Register = () => {
         createUser(data.email, data.password)
             .then(result => {
                 console.log(result);
-                toast.success("Sign up successful")
+                toast.success("Sign up successful");
+                const newUser = data.user;
+                updateUserProfile(data.name, data.photo)
+                    .then(() => {
+                        setUser({ ...newUser, displayName: data.name, photoURL: data.photo });
+                    })
+                .catch(error => console.log(error))
+
             })
             .catch(error => {
                 console.log(error);
