@@ -1,15 +1,17 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthProvider";
 import { toast } from "react-toastify";
 import { FcGoogle } from "react-icons/fc";
 const Login = () => {
     const { loginUser, loginWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         loginUser(data.email, data.password)
             .then(result => {
+                navigate("/");
                 toast.success("Login in successful")
                 console.log(result);
             })
@@ -21,6 +23,8 @@ const Login = () => {
     const handleLoginWithgoogle = () => {
         loginWithGoogle()
         .then(result => {
+            navigate("/");
+            toast.success("Login in successful")
             console.log("success", result);
         })
         .catch(error => {

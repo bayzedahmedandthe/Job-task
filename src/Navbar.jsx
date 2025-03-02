@@ -3,14 +3,17 @@ import Logo from "../src/assets/Logo.png"
 import { AuthContext } from "./Components/AuthProvider";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
     const {user, logoutUser} = useContext(AuthContext); 
+    const navigate = useNavigate();
     // console.log(user?.photoURL)
     const handleLogOut = () => {
         logoutUser()
         .then(result => {
             console.log(result);
+            navigate("/login")
             toast.success("Logout successful")
         })
         .catch(error => {
@@ -21,7 +24,7 @@ const Navbar = () => {
         <div className=" bg-gradient-to-br from-[#091646] to-[#491906]">
             <div className="navbar w-11/12 mx-auto">
                 <div className="navbar-start">
-                    <div className="dropdown">
+                    {/* <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -36,14 +39,14 @@ const Navbar = () => {
                                     d="M4 6h16M4 12h8m-8 6h16" />
                             </svg>
                         </div>
-                        {/* <ul
+                        <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><a>Item 1</a></li>
                         <li><a>Item 3</a></li>
-                    </ul> */}
-                    </div>
-                    <a className=""><img className="md:h-16 md:w-16" src={Logo} alt="" /></a>
+                    </ul>
+                    </div> */}
+                    <a className=""><img className="md:h-16 md:w-16 h-10 w-10" src={Logo} alt="" /></a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     {/* <ul className="menu menu-horizontal px-1">
@@ -56,7 +59,7 @@ const Navbar = () => {
                         user? <img className="h-10 w-10 rounded-full" src={user.photoURL} alt="" /> : <p className="text-5xl text-secondary rounded-full"> <IoPersonCircleOutline /></p>
                     }
                     {
-                        user? <button onClick={handleLogOut} className="btn btn-secondary btn-outline ml-4">Logout</button>: <p></p>
+                        user? <button onClick={handleLogOut} className="btn btn-secondary btn-outline ml-4">Logout</button>: <Link to="/login" className="btn btn-secondary btn-outline ml-4">Login</Link>
                     }
                 </div>
             </div>

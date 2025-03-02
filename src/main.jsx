@@ -11,6 +11,9 @@ import Login from './Components/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from './Components/AuthProvider';
+import HomePage from './Components/HomePage';
+import PrivetRoute from './Components/PrivetRoute';
+// import PrivetRoute from './Components/PrivetRoute';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -19,11 +22,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Login></Login>
+        element:  <PrivetRoute><HomePage></HomePage></PrivetRoute>
       },
       {
         path: "/register",
         element: <Register></Register>
+      }, 
+      {
+        path: "/login", 
+        element: <Login></Login>
       }
     ]
   },
